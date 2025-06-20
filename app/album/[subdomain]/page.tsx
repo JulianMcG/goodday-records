@@ -171,18 +171,31 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="relative z-10"
             >
-              <div 
-                className="w-[500px] h-[500px] rounded-[30px] p-[2px]"
-                style={{
-                  background: 'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,0.5) 100%)',
-                  opacity: '0.1'
-                }}
-              >
-                <img
-                  src={album.coverUrl}
-                  alt={`${album.albumName} by ${album.artistName}`}
-                  className="w-full h-full object-cover rounded-[30px]"
-                />
+              {/* Glassy gradient stroke */}
+              <div className="relative">
+                {/* Outer gradient border */}
+                <div 
+                  className="absolute inset-0 rounded-[30px] p-[2px]"
+                  style={{
+                    background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0.3) 100%)',
+                    backdropFilter: 'blur(10px)',
+                  }}
+                >
+                  {/* Inner gradient border */}
+                  <div 
+                    className="w-full h-full rounded-[28px] p-[1px]"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.2) 100%)',
+                    }}
+                  >
+                    {/* Album cover image */}
+                    <img
+                      src={album.coverUrl}
+                      alt={`${album.albumName} by ${album.artistName}`}
+                      className="w-[500px] h-[500px] object-cover rounded-[27px]"
+                    />
+                  </div>
+                </div>
               </div>
             </motion.div>
           </div>
@@ -224,7 +237,7 @@ export default function AlbumPage({ params }: AlbumPageProps) {
                       href={album.streamingLinks[service.key]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-bold transition-all duration-200 hover:bg-opacity-10 hover:scale-105 flex items-center justify-center space-x-3"
+                      className="bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-bold transition-all duration-200 hover:bg-opacity-10 hover:scale-105 flex items-center justify-center space-x-3"
                       style={{ 
                         fontFamily: 'Helvetica Neue, sans-serif',
                         fontWeight: '700',
@@ -232,20 +245,12 @@ export default function AlbumPage({ params }: AlbumPageProps) {
                         minWidth: '200px'
                       }}
                     >
-                      {/* Stroke effect */}
-                      <div 
-                        className="absolute inset-0 rounded-full p-[1.25px] pointer-events-none"
-                        style={{
-                          background: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 100%)',
-                          mixBlendMode: 'overlay'
-                        }}
-                      />
                       <img 
                         src={service.logo} 
                         alt={`${service.name} logo`}
-                        className="w-6 h-6 relative z-10"
+                        className="w-6 h-6"
                       />
-                      <span className="text-lg tracking-wider relative z-10">{service.name.toUpperCase()}</span>
+                      <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
                     </a>
                   ))}
                 </div>
