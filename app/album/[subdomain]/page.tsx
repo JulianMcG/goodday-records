@@ -175,8 +175,7 @@ export default function AlbumPage({ params }: AlbumPageProps) {
                 className="w-[500px] h-[500px] rounded-[30px] p-[2px]"
                 style={{
                   background: 'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 50%, rgba(255,255,255,0.5) 100%)',
-                  opacity: 0.1,
-                  mixBlendMode: 'normal'
+                  opacity: '0.1'
                 }}
               >
                 <img
@@ -220,35 +219,34 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               >
                 <div className="flex flex-col items-center gap-4">
                   {availableServices.map((service) => (
-                    <div
-                      className="inline-block rounded-full p-[1.25px]"
-                      style={{
-                        background: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 100%)',
-                        opacity: 1,
-                        mixBlendMode: 'overlay'
+                    <a
+                      key={service.key}
+                      href={album.streamingLinks[service.key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-bold transition-all duration-200 hover:bg-opacity-10 hover:scale-105 flex items-center justify-center space-x-3"
+                      style={{ 
+                        fontFamily: 'Helvetica Neue, sans-serif',
+                        fontWeight: '700',
+                        width: 'fit-content',
+                        minWidth: '200px'
                       }}
                     >
-                      <a
-                        key={service.key}
-                        href={album.streamingLinks[service.key]}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-bold transition-all duration-200 hover:bg-opacity-10 hover:scale-105 flex items-center justify-center space-x-3 block"
-                        style={{ 
-                          fontFamily: 'Helvetica Neue, sans-serif',
-                          fontWeight: '700',
-                          width: 'fit-content',
-                          minWidth: '200px'
+                      {/* Stroke effect */}
+                      <div 
+                        className="absolute inset-0 rounded-full p-[1.25px] pointer-events-none"
+                        style={{
+                          background: 'linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(0,0,0,0) 100%)',
+                          mixBlendMode: 'overlay'
                         }}
-                      >
-                        <img 
-                          src={service.logo} 
-                          alt={`${service.name} logo`}
-                          className="w-6 h-6"
-                        />
-                        <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
-                      </a>
-                    </div>
+                      />
+                      <img 
+                        src={service.logo} 
+                        alt={`${service.name} logo`}
+                        className="w-6 h-6 relative z-10"
+                      />
+                      <span className="text-lg tracking-wider relative z-10">{service.name.toUpperCase()}</span>
+                    </a>
                   ))}
                 </div>
               </motion.div>
