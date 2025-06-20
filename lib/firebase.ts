@@ -14,12 +14,4 @@ const firebaseConfig = {
 const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
 const db = getFirestore(app);
 
-// Only load auth on the client
-let auth = null;
-if (typeof window !== 'undefined') {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { getAuth } = require('firebase/auth');
-  auth = getAuth(app);
-}
-
-export { app, db, auth }; 
+export { app, db }; 
