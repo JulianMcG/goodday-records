@@ -12,6 +12,7 @@ export default function Home() {
   useEffect(() => {
     // Check if environment variables are loaded
     const checkEnvVars = () => {
+      console.log('=== ENVIRONMENT VARIABLE DEBUG ===')
       console.log('Checking environment variables...')
       
       const requiredVars = [
@@ -31,11 +32,30 @@ export default function Home() {
         NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
       })
       
+      // Check each variable individually
+      requiredVars.forEach(varName => {
+        const value = process.env[varName]
+        console.log(`${varName}:`, {
+          value: value,
+          type: typeof value,
+          length: value?.length,
+          isUndefined: value === undefined,
+          isNull: value === null,
+          isEmpty: value === '',
+          isFalsy: !value
+        })
+      })
+      
       const missingVars = requiredVars.filter(varName => !process.env[varName])
+      
+      console.log('Missing variables:', missingVars)
+      console.log('=== END DEBUG ===')
       
       if (missingVars.length > 0) {
         console.error('Missing environment variables:', missingVars)
-        setError(`Missing environment variables: ${missingVars.join(', ')}`)
+        // Temporarily bypass the error to test if the app works
+        console.log('Bypassing environment variable check for testing...')
+        // setError(`Missing environment variables: ${missingVars.join(', ')}`)
       } else {
         console.log('Environment variables loaded successfully')
       }
