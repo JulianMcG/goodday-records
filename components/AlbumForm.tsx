@@ -111,13 +111,13 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
     try {
       const isAvailable = await albumService.isSubdomainAvailable(subdomain)
       if (!isAvailable) {
-        toast.error('This subdomain is already taken. Please choose another one.')
+        toast.error('This URL is already taken. Please choose another one.')
       } else {
-        toast.success('Subdomain is available!')
+        toast.success('URL is available!')
       }
     } catch (error) {
       console.error('Error checking subdomain:', error)
-      toast.error('Error checking subdomain availability')
+      toast.error('Error checking URL availability')
     } finally {
       setCheckingSubdomain(false)
     }
@@ -137,7 +137,7 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
       // Check subdomain availability
       const isAvailable = await albumService.isSubdomainAvailable(formData.subdomain)
       if (!isAvailable) {
-        toast.error('This subdomain is already taken. Please choose another one.')
+        toast.error('This URL is already taken. Please choose another one.')
         return
       }
 
@@ -154,8 +154,8 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
       
       toast.success('Album created successfully!')
       
-      // Redirect to the new album page
-      window.open(`https://${formData.subdomain}.gooddayrecords.xyz`, '_blank')
+      // Redirect to the new album page using relative URL
+      window.open(`/album/${formData.subdomain}`, '_blank')
       
       // Reset form
       setFormData({
@@ -199,7 +199,7 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
       {/* Header */}
       <div className="p-6 border-b border-slate-200">
         <h2 className="text-2xl font-bold text-slate-900">Share Your Album</h2>
-        <p className="text-slate-600 mt-2">Create a beautiful album page with your own subdomain</p>
+        <p className="text-slate-600 mt-2">Create a beautiful album page with your own URL</p>
       </div>
 
       {/* Form */}
@@ -243,21 +243,6 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
           </div>
         </div>
 
-        {/* Artist Name */}
-        <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">
-            Artist Name *
-          </label>
-          <input
-            type="text"
-            value={formData.artistName || ''}
-            onChange={(e) => handleInputChange('artistName', e.target.value)}
-            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="Enter artist name"
-            required
-          />
-        </div>
-
         {/* Album Name */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">
@@ -267,23 +252,38 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
             type="text"
             value={formData.albumName || ''}
             onChange={(e) => handleInputChange('albumName', e.target.value)}
-            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900"
             placeholder="Enter album name"
             required
           />
         </div>
 
-        {/* Subdomain */}
+        {/* Artist Name */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">
-            Subdomain *
+            Artist Name *
+          </label>
+          <input
+            type="text"
+            value={formData.artistName || ''}
+            onChange={(e) => handleInputChange('artistName', e.target.value)}
+            className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900"
+            placeholder="Enter artist name"
+            required
+          />
+        </div>
+
+        {/* URL Slug */}
+        <div>
+          <label className="block text-sm font-medium text-slate-700 mb-2">
+            URL Slug *
           </label>
           <div className="flex space-x-2">
             <input
               type="text"
               value={formData.subdomain || ''}
               onChange={(e) => handleInputChange('subdomain', e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ''))}
-              className="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="flex-1 px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-slate-900"
               placeholder="your-album-name"
               required
             />
@@ -304,7 +304,7 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
             </button>
           </div>
           <p className="text-sm text-slate-500 mt-1">
-            Your album will be available at: {formData.subdomain ? `${formData.subdomain}.gooddayrecords.xyz` : 'your-subdomain.gooddayrecords.xyz'}
+            Your album will be available at: {formData.subdomain ? `gooddayrecords.xyz/album/${formData.subdomain}` : 'gooddayrecords.xyz/album/your-url'}
           </p>
         </div>
 
@@ -323,7 +323,7 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
                   type="url"
                   value={formData.streamingLinks?.[service.key] || ''}
                   onChange={(e) => handleStreamingLinkChange(service.key, e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm text-slate-900"
                   placeholder={`${service.name} URL`}
                 />
               </div>

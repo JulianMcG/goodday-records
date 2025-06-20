@@ -100,7 +100,7 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               <span>Back to Good Day Records</span>
             </a>
             <div className="text-sm text-slate-500">
-              {album.subdomain}.gooddayrecords.xyz
+              gooddayrecords.xyz/album/{album.subdomain}
             </div>
           </div>
         </div>

@@ -14,18 +14,6 @@ export default function Home() {
     const checkEnvVars = () => {
       console.log('Checking environment variables...')
       
-      // Temporarily hardcode for testing
-      const firebaseConfig = {
-        apiKey: "AIzaSyAIqmbmuZ4tsedAqlEd3Xi-u2gaZvEQxnU",
-        authDomain: "goodday-records.firebaseapp.com",
-        projectId: "goodday-records",
-        storageBucket: "goodday-records.firebasestorage.app",
-        messagingSenderId: "216124466634",
-        appId: "1:216124466634:web:e8b7c5005867c0fefa9b33",
-      }
-      
-      console.log('Using hardcoded Firebase config:', firebaseConfig)
-      
       const requiredVars = [
         'NEXT_PUBLIC_FIREBASE_API_KEY',
         'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
@@ -47,8 +35,7 @@ export default function Home() {
       
       if (missingVars.length > 0) {
         console.error('Missing environment variables:', missingVars)
-        console.log('But continuing with hardcoded config for testing...')
-        // Don't set error, continue with hardcoded config
+        setError(`Missing environment variables: ${missingVars.join(', ')}`)
       } else {
         console.log('Environment variables loaded successfully')
       }
@@ -113,7 +100,7 @@ export default function Home() {
               Create Your Album Page
             </h2>
             <p className="text-xl text-slate-600 mb-8">
-              Upload your album cover, add streaming links, and get a custom subdomain to share your music.
+              Upload your album cover, add streaming links, and get a custom URL to share your music.
             </p>
           </div>
           
