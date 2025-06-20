@@ -1,24 +1,23 @@
 # Good Day Records - Album Sharing Platform
 
-A modern web application for sharing albums with custom subdomains, similar to Last.fm. Users can upload album covers, add artist and album names, and include links to various streaming services.
+A modern web application for creating beautiful album pages with custom subdomains. Built with Next.js 14, TypeScript, Tailwind CSS, and Firebase.
 
 ## Features
 
-- 🎵 **Album Sharing**: Upload album covers and metadata
-- 🌐 **Custom Subdomains**: Each album gets its own subdomain (e.g., `artist-album.gooddayrecords.xyz`)
-- 🎧 **Streaming Integration**: Support for Spotify, Apple Music, YouTube, SoundCloud, Bandcamp, Tidal, Amazon Music, and Deezer
-- 📱 **Responsive Design**: Beautiful, modern UI that works on all devices
-- ⚡ **Fast Performance**: Built with Next.js 14 and optimized for speed
-- 🔥 **Firebase Backend**: Scalable database and storage solution
+- **Custom Subdomains**: Each album gets its own subdomain (e.g., `artist-album.gooddayrecords.xyz`)
+- **Image Upload**: Drag and drop album covers with automatic image hosting via ImgBB
+- **Streaming Links**: Add links to Spotify, Apple Music, YouTube, and more
+- **Modern Design**: Clean, responsive interface built with Tailwind CSS
+- **Real-time Updates**: Instant subdomain availability checking
 
 ## Tech Stack
 
 - **Frontend**: Next.js 14, React 18, TypeScript
-- **Styling**: Tailwind CSS, Framer Motion
-- **Backend**: Firebase (Firestore, Storage, Authentication)
-- **Image Upload**: ImgBB API
+- **Styling**: Tailwind CSS
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Auth
+- **Image Storage**: ImgBB API
 - **Deployment**: Vercel
-- **Domain**: Custom subdomain support
 
 ## Getting Started
 
@@ -26,154 +25,132 @@ A modern web application for sharing albums with custom subdomains, similar to L
 
 - Node.js 18+ 
 - npm or yarn
-- Firebase account
-- ImgBB account (for image uploads)
-- Domain (gooddayrecords.xyz)
+- Firebase project
+- ImgBB API key
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <your-repo-url>
-   cd GOODDAYALBUMPAGE
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/JulianMcG/goodday-records.git
+cd goodday-records
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+2. Install dependencies:
+```bash
+npm install
+```
 
-3. **Set up environment variables**
-   ```bash
-   cp env.example .env.local
-   ```
-   
-   Fill in your Firebase and ImgBB credentials in `.env.local`
+3. Set up environment variables:
+```bash
+cp env.example .env.local
+```
 
-4. **Set up Firebase**
-   - Create a new Firebase project
-   - Enable Firestore Database
-   - Enable Storage
-   - Add your web app and copy the config
-   - Update your `.env.local` with the Firebase config
+Fill in your environment variables:
+```env
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_project.firebaseapp.com
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_project.appspot.com
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
 
-5. **Set up ImgBB**
-   - Sign up at [imgbb.com](https://imgbb.com)
-   - Get your API key
-   - Add it to `.env.local`
+# ImgBB API Key (for image uploads)
+NEXT_PUBLIC_IMGBB_API_KEY=your_imgbb_api_key
 
-6. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+# Domain Configuration
+NEXT_PUBLIC_DOMAIN=gooddayrecords.xyz
+```
 
-   Open [http://localhost:3000](http://localhost:3000) to view the app.
+4. Run the development server:
+```bash
+npm run dev
+```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Project Structure
 
 ```
-├── app/                    # Next.js 13+ app directory
-│   ├── album/             # Dynamic album pages
+├── app/                    # Next.js 14 app directory
+│   ├── album/             # Album page routes
+│   │   └── [subdomain]/   # Dynamic album pages
+│   ├── api/               # API routes
 │   ├── globals.css        # Global styles
 │   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page
+│   ├── not-found.tsx      # 404 page
+│   └── page.tsx           # Home page (album creation form)
 ├── components/            # React components
-│   ├── AlbumCard.tsx      # Album display card
+│   ├── AlbumCard.tsx      # Album display component
 │   └── AlbumForm.tsx      # Album creation form
 ├── lib/                   # Utility libraries
-│   └── firebase.ts        # Firebase configuration
+│   ├── firebase.ts        # Firebase configuration
+│   └── firebase-services.ts # Firebase service functions
 ├── types/                 # TypeScript type definitions
-│   └── index.ts           # Album and user types
-└── public/                # Static assets
+│   └── index.ts           # Album and form types
+├── public/                # Static assets
+└── vercel.json           # Vercel deployment configuration
 ```
 
 ## Deployment
 
-### Vercel Deployment
+### Vercel (Recommended)
 
-1. **Connect to Vercel**
-   - Push your code to GitHub
-   - Connect your repository to Vercel
-   - Add environment variables in Vercel dashboard
+1. Connect your GitHub repository to Vercel
+2. Add environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
-2. **Domain Configuration**
-   - Add your domain (gooddayrecords.xyz) to Vercel
-   - Configure wildcard subdomains (*.gooddayrecords.xyz)
-   - Update DNS records as instructed by Vercel
+### Manual Deployment
 
-3. **Environment Variables**
-   Make sure to add all environment variables in Vercel:
-   - Firebase configuration
-   - ImgBB API key
-   - Domain configuration
+```bash
+npm run build
+npm start
+```
 
-### Firebase Setup
+## Environment Variables
 
-1. **Firestore Rules**
-   ```javascript
-   rules_version = '2';
-   service cloud.firestore {
-     match /databases/{database}/documents {
-       match /albums/{albumId} {
-         allow read: if true;
-         allow write: if request.auth != null;
-       }
-     }
-   }
-   ```
+Make sure to set these environment variables in your deployment platform:
 
-2. **Storage Rules**
-   ```javascript
-   rules_version = '2';
-   service firebase.storage {
-     match /b/{bucket}/o {
-       match /album-covers/{allPaths=**} {
-         allow read: if true;
-         allow write: if request.auth != null;
-       }
-     }
-   }
-   ```
+- `NEXT_PUBLIC_FIREBASE_API_KEY`: Your Firebase API key
+- `NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN`: Your Firebase auth domain
+- `NEXT_PUBLIC_FIREBASE_PROJECT_ID`: Your Firebase project ID
+- `NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET`: Your Firebase storage bucket
+- `NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID`: Your Firebase messaging sender ID
+- `NEXT_PUBLIC_FIREBASE_APP_ID`: Your Firebase app ID
+- `NEXT_PUBLIC_IMGBB_API_KEY`: Your ImgBB API key
+- `NEXT_PUBLIC_DOMAIN`: Your domain (e.g., gooddayrecords.xyz)
 
 ## Usage
 
-### Creating an Album
+1. **Create an Album Page**:
+   - Visit the main page
+   - Upload an album cover
+   - Enter artist and album names
+   - Choose a subdomain
+   - Add streaming service links
+   - Submit to create your album page
 
-1. Visit the homepage
-2. Click "Share Album" or "Get Started"
-3. Upload an album cover (drag & drop supported)
-4. Fill in artist name and album name
-5. Choose or generate a subdomain
-6. Add streaming service links
-7. Click "Create Album Page"
-
-### Viewing Albums
-
-- Each album gets its own page at `{subdomain}.gooddayrecords.xyz`
-- Albums are also displayed on the homepage
-- Users can share album pages directly
+2. **Share Your Album**:
+   - Your album will be available at `[subdomain].gooddayrecords.xyz`
+   - Share this URL with your audience
+   - Viewers can access all your streaming links in one place
 
 ## Contributing
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License.
 
 ## Support
 
-For support, email support@gooddayrecords.xyz or create an issue in this repository.
+For support, please open an issue on GitHub or contact the development team.
 
-## Roadmap
+---
 
-- [ ] User authentication and profiles
-- [ ] Album collections and playlists
-- [ ] Social features (likes, comments, sharing)
-- [ ] Analytics and insights
-- [ ] Mobile app
-- [ ] API for third-party integrations 
+**Note**: This is a deployment test - the app structure has been updated to show the album creation form on the main page. 
