@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Upload, Music, ExternalLink } from 'lucide-react'
 import { useDropzone } from 'react-dropzone'
 import toast from 'react-hot-toast'
@@ -33,6 +33,24 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
   const [coverPreview, setCoverPreview] = useState<string>('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [checkingSubdomain, setCheckingSubdomain] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    // Debug: Check if Firebase is initialized
+    try {
+      console.log('AlbumForm: Checking Firebase initialization...')
+      // This will throw an error if Firebase isn't properly configured
+      const testConfig = {
+        apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+        authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+        projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+      }
+      console.log('AlbumForm: Firebase config check passed', testConfig)
+    } catch (err) {
+      console.error('AlbumForm: Firebase config error:', err)
+      setError('Firebase configuration error')
+    }
+  }, [])
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
@@ -40,14 +58,19 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
     },
     maxFiles: 1,
     onDrop: (acceptedFiles: File[]) => {
-      const file = acceptedFiles[0]
-      if (file) {
-        setCoverFile(file)
-        const reader = new FileReader()
-        reader.onload = () => {
-          setCoverPreview(reader.result as string)
+      try {
+        const file = acceptedFiles[0]
+        if (file) {
+          setCoverFile(file)
+          const reader = new FileReader()
+          reader.onload = () => {
+            setCoverPreview(reader.result as string)
+          }
+          reader.readAsDataURL(file)
         }
-        reader.readAsDataURL(file)
+      } catch (err) {
+        console.error('Error handling file drop:', err)
+        setError('Error uploading file')
       }
     }
   })
@@ -70,10 +93,15 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
   }
 
   const generateSubdomain = () => {
-    const artist = formData.artistName?.toLowerCase().replace(/[^a-z0-9]/g, '') || ''
-    const album = formData.albumName?.toLowerCase().replace(/[^a-z0-9]/g, '') || ''
-    const subdomain = `${artist}-${album}`.substring(0, 30)
-    setFormData(prev => ({ ...prev, subdomain }))
+    try {
+      const artist = formData.artistName?.toLowerCase().replace(/[^a-z0-9]/g, '') || ''
+      const album = formData.albumName?.toLowerCase().replace(/[^a-z0-9]/g, '') || ''
+      const subdomain = `${artist}-${album}`.substring(0, 30)
+      setFormData(prev => ({ ...prev, subdomain }))
+    } catch (err) {
+      console.error('Error generating subdomain:', err)
+      setError('Error generating subdomain')
+    }
   }
 
   const checkSubdomainAvailability = async (subdomain: string) => {
@@ -148,6 +176,22 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  if (error) {
+    return (
+      <div className="bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
+        <Music className="h-12 w-12 text-red-500 mx-auto mb-4" />
+        <h3 className="text-lg font-semibold text-red-900 mb-2">Error Loading Form</h3>
+        <p className="text-red-700 mb-4">{error}</p>
+        <button
+          onClick={() => window.location.reload()}
+          className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg"
+        >
+          Reload Page
+        </button>
+      </div>
+    )
   }
 
   return (
