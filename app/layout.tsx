@@ -6,14 +6,20 @@ import { Toaster } from 'react-hot-toast'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Good Day Records - Album Sharing Platform',
-  description: 'Share your favorite albums with custom subdomains. Upload album covers, artist names, and streaming links.',
+  title: 'Good Day Records - Create Album Pages',
+  description: 'Create beautiful album pages with custom subdomains. Upload covers, add streaming links, and share your music.',
+  metadataBase: new URL('https://gooddayrecords.xyz'),
   keywords: 'music, albums, streaming, spotify, apple music, good day records',
   authors: [{ name: 'Good Day Records' }],
   openGraph: {
-    title: 'Good Day Records - Album Sharing Platform',
-    description: 'Share your favorite albums with custom subdomains',
+    title: 'Good Day Records - Create Album Pages',
+    description: 'Create beautiful album pages with custom subdomains. Upload covers, add streaming links, and share your music.',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Good Day Records - Create Album Pages',
+    description: 'Create beautiful album pages with custom subdomains. Upload covers, add streaming links, and share your music.',
   },
 }
 
