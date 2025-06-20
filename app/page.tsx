@@ -12,11 +12,24 @@ export default function Home() {
   useEffect(() => {
     // Check if environment variables are loaded
     const checkEnvVars = () => {
+      console.log('Checking environment variables...')
+      
       const requiredVars = [
         'NEXT_PUBLIC_FIREBASE_API_KEY',
         'NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN',
         'NEXT_PUBLIC_FIREBASE_PROJECT_ID'
       ]
+      
+      // Log all environment variables for debugging
+      console.log('All NEXT_PUBLIC env vars:', {
+        NEXT_PUBLIC_FIREBASE_API_KEY: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+        NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+        NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+        NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+        NEXT_PUBLIC_DOMAIN: process.env.NEXT_PUBLIC_DOMAIN,
+      })
       
       const missingVars = requiredVars.filter(varName => !process.env[varName])
       
@@ -51,9 +64,15 @@ export default function Home() {
           <Music className="h-16 w-16 text-red-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-slate-900 mb-4">Configuration Error</h1>
           <p className="text-slate-600 mb-4">{error}</p>
-          <p className="text-sm text-slate-500">
+          <p className="text-sm text-slate-500 mb-4">
             Please check your environment variables in Vercel dashboard.
           </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-lg"
+          >
+            Reload Page
+          </button>
         </div>
       </div>
     )
