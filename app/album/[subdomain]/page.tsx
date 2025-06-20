@@ -5,9 +5,12 @@ import { motion } from 'framer-motion'
 import { ExternalLink, Music, ArrowLeft } from 'lucide-react'
 import { Album } from '@/types'
 import { albumService } from '@/lib/firebase-services'
-import { Instrument_Sans } from 'next/font/google'
+import { Instrument_Serif } from 'next/font/google'
 
-const instrumentSans = Instrument_Sans({ subsets: ['latin'] })
+const instrumentSerif = Instrument_Serif({ 
+  subsets: ['latin'],
+  weight: '400'
+})
 
 interface AlbumPageProps {
   params: {
@@ -91,81 +94,87 @@ export default function AlbumPage({ params }: AlbumPageProps) {
 
   return (
     <div className="min-h-screen bg-black relative overflow-hidden">
-      {/* Blurred background glow effect */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <img
-          src={album.coverUrl}
-          alt=""
-          className="w-[800px] h-[800px] object-cover rounded-[30px] blur-[200px] opacity-75"
-          style={{ filter: 'blur(200px)' }}
-        />
-      </div>
-
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4">
-        <div className="text-center max-w-2xl mx-auto">
-          {/* Album Cover */}
-          <motion.div
-            initial={{ scale: 0.9, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-            className="mb-8"
-          >
-            <img
-              src={album.coverUrl}
-              alt={`${album.albumName} by ${album.artistName}`}
-              className="w-80 h-80 object-cover rounded-[30px] mx-auto"
-            />
-          </motion.div>
-
-          {/* Album Info */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-            className="mb-12"
-          >
-            <h1 
-              className={`text-5xl md:text-6xl font-bold text-white leading-tight mb-4 ${instrumentSans.className}`}
-            >
-              {album.albumName}
-            </h1>
-            <p 
-              className="text-2xl text-gray-300 font-medium tracking-wider"
-              style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
-            >
-              {album.artistName.toUpperCase()}
-            </p>
-          </motion.div>
-
-          {/* Streaming Links */}
-          {availableServices.length > 0 && (
+        <div className="flex items-center max-w-6xl mx-auto gap-16">
+          {/* Album Cover Section */}
+          <div className="relative">
+            {/* Blurred background glow effect */}
+            <div className="absolute inset-0">
+              <img
+                src={album.coverUrl}
+                alt=""
+                className="w-80 h-80 object-cover rounded-[30px] blur-[100px] opacity-75"
+                style={{ filter: 'blur(100px)' }}
+              />
+            </div>
+            
+            {/* Album Cover */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.6 }}
-              className="space-y-4"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="relative z-10"
             >
-              <div className="grid gap-4 max-w-md mx-auto">
-                {availableServices.map((service) => (
-                  <a
-                    key={service.key}
-                    href={album.streamingLinks[service.key]}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`${service.color} text-white px-8 py-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-between group hover:shadow-lg hover:scale-105`}
-                    style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
-                  >
-                    <div className="flex items-center space-x-3">
-                      <span className="text-xl">{service.icon}</span>
-                      <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
-                    </div>
-                    <ExternalLink className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  </a>
-                ))}
-              </div>
+              <img
+                src={album.coverUrl}
+                alt={`${album.albumName} by ${album.artistName}`}
+                className="w-80 h-80 object-cover rounded-[30px]"
+              />
             </motion.div>
-          )}
+          </div>
+
+          {/* Content Section */}
+          <div className="flex-1 max-w-md">
+            {/* Album Info */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="mb-12"
+            >
+              <h1 
+                className={`text-5xl md:text-6xl font-bold text-white leading-tight mb-4 ${instrumentSerif.className}`}
+              >
+                {album.albumName}
+              </h1>
+              <p 
+                className="text-2xl text-gray-300 font-medium tracking-wider"
+                style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
+              >
+                {album.artistName.toUpperCase()}
+              </p>
+            </motion.div>
+
+            {/* Streaming Links */}
+            {availableServices.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.6, duration: 0.6 }}
+                className="space-y-4"
+              >
+                <div className="grid gap-4">
+                  {availableServices.map((service) => (
+                    <a
+                      key={service.key}
+                      href={album.streamingLinks[service.key]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${service.color} text-white px-8 py-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-between group hover:shadow-lg hover:scale-105`}
+                      style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <span className="text-xl">{service.icon}</span>
+                        <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
+                      </div>
+                      <ExternalLink className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </a>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+          </div>
         </div>
       </div>
     </div>

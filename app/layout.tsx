@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter, Instrument_Sans } from 'next/font/google'
+import { Inter, Instrument_Serif } from 'next/font/google'
 import './globals.css'
 import { Toaster } from 'react-hot-toast'
 
 const inter = Inter({ subsets: ['latin'] })
-const instrumentSans = Instrument_Sans({ subsets: ['latin'] })
+const instrumentSerif = Instrument_Serif({ 
+  subsets: ['latin'],
+  weight: '400'
+})
 
 export const metadata: Metadata = {
   title: 'Good Day Records - Create Album Pages',
