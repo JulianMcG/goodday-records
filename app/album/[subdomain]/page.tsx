@@ -96,7 +96,7 @@ export default function AlbumPage({ params }: AlbumPageProps) {
     <div className="min-h-screen bg-black relative overflow-hidden">
       {/* Main content */}
       <div className="relative z-10 min-h-screen flex items-center justify-center px-4">
-        <div className="flex items-center max-w-6xl mx-auto gap-16">
+        <div className="flex items-center max-w-7xl mx-auto gap-20">
           {/* Album Cover Section */}
           <div className="relative">
             {/* Blurred background glow effect */}
@@ -104,7 +104,7 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               <img
                 src={album.coverUrl}
                 alt=""
-                className="w-80 h-80 object-cover rounded-[30px] blur-[100px] opacity-75"
+                className="w-[500px] h-[500px] object-cover rounded-[30px] blur-[100px] opacity-75"
                 style={{ filter: 'blur(100px)' }}
               />
             </div>
@@ -119,27 +119,27 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               <img
                 src={album.coverUrl}
                 alt={`${album.albumName} by ${album.artistName}`}
-                className="w-80 h-80 object-cover rounded-[30px]"
+                className="w-[500px] h-[500px] object-cover rounded-[30px]"
               />
             </motion.div>
           </div>
 
           {/* Content Section */}
-          <div className="flex-1 max-w-md">
+          <div className="flex-1 flex flex-col items-center justify-center">
             {/* Album Info */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4, duration: 0.6 }}
-              className="mb-12"
+              className="mb-16 text-center"
             >
               <h1 
-                className={`text-5xl md:text-6xl font-bold text-white leading-tight mb-4 ${instrumentSerif.className}`}
+                className={`text-6xl md:text-7xl font-bold text-white leading-tight mb-6 ${instrumentSerif.className}`}
               >
                 {album.albumName}
               </h1>
               <p 
-                className="text-2xl text-gray-300 font-medium tracking-wider"
+                className="text-3xl text-gray-300 font-medium tracking-wider"
                 style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
               >
                 {album.artistName.toUpperCase()}
@@ -154,21 +154,21 @@ export default function AlbumPage({ params }: AlbumPageProps) {
                 transition={{ delay: 0.6, duration: 0.6 }}
                 className="space-y-4"
               >
-                <div className="grid gap-4">
+                <div className="flex flex-col items-center gap-4">
                   {availableServices.map((service) => (
                     <a
                       key={service.key}
                       href={album.streamingLinks[service.key]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`${service.color} text-white px-8 py-4 rounded-xl font-medium transition-all duration-200 flex items-center justify-between group hover:shadow-lg hover:scale-105`}
-                      style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
+                      className="bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-medium transition-all duration-200 hover:bg-opacity-10 hover:scale-105"
+                      style={{ 
+                        fontFamily: 'Helvetica Neue, sans-serif',
+                        width: 'fit-content',
+                        minWidth: '200px'
+                      }}
                     >
-                      <div className="flex items-center space-x-3">
-                        <span className="text-xl">{service.icon}</span>
-                        <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
-                      </div>
-                      <ExternalLink className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                      <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
                     </a>
                   ))}
                 </div>
