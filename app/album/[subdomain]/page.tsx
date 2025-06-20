@@ -19,14 +19,46 @@ interface AlbumPageProps {
 }
 
 const streamingServices = [
-  { key: 'spotify', name: 'Spotify', icon: '🎵', color: 'bg-green-500 hover:bg-green-600' },
-  { key: 'appleMusic', name: 'Apple Music', icon: '🍎', color: 'bg-pink-500 hover:bg-pink-600' },
-  { key: 'youtube', name: 'YouTube', icon: '📺', color: 'bg-red-500 hover:bg-red-600' },
-  { key: 'soundcloud', name: 'SoundCloud', icon: '☁️', color: 'bg-orange-500 hover:bg-orange-600' },
-  { key: 'bandcamp', name: 'Bandcamp', icon: '🎸', color: 'bg-blue-500 hover:bg-blue-600' },
-  { key: 'tidal', name: 'Tidal', icon: '🌊', color: 'bg-purple-500 hover:bg-purple-600' },
-  { key: 'amazonMusic', name: 'Amazon Music', icon: '📦', color: 'bg-yellow-500 hover:bg-yellow-600' },
-  { key: 'deezer', name: 'Deezer', icon: '🎧', color: 'bg-indigo-500 hover:bg-indigo-600' },
+  { 
+    key: 'spotify', 
+    name: 'Spotify', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xNi41IDExLjVDMTYuNSAxMS4yMjM5IDE2LjI3NjEgMTEgMTYgMTFDMTUuNzIzOSAxMSAxNS41IDExLjIyMzkgMTUuNSAxMS41QzE1LjUgMTEuNzc2MSAxNS43MjM5IDEyIDE2IDEyQzE2LjI3NjEgMTIgMTYuNSAxMS43NzYxIDE2LjUgMTEuNVoiIGZpbGw9ImJsYWNrIi8+CjxwYXRoIGQ9Ik0xMiAxMUMxMS43MjM5IDExIDExLjUgMTEuMjIzOSAxMS41IDExLjVDMTEuNSAxMS43NzYxIDExLjcyMzkgMTIgMTIgMTJDMTIuMjc2MSAxMiAxMi41IDExLjc3NjEgMTIuNSAxMS41QzEyLjUgMTEuMjIzOSAxMi4yNzYxIDExIDEyIDExWiIgZmlsbD0iYmxhY2siLz4KPHBhdGggZD0iTTggMTFDNy43MjM5IDExIDcuNSAxMS4yMjM5IDcuNSAxMS41QzcuNSAxMS43NzYxIDcuNzIzOSAxMiA4IDEyQzguMjc2MSAxMiA4LjUgMTEuNzc2MSA4LjUgMTEuNUM4LjUgMTEuMjIzOSA4LjI3NjEgMTEgOCAxMVoiIGZpbGw9ImJsYWNrIi8+Cjwvc3ZnPgo=' 
+  },
+  { 
+    key: 'appleMusic', 
+    name: 'Apple Music', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiA2QzEwLjM0MzEgNiA5IDcuMzQzMTUgOSA5QzkgMTAuNjU2OSAxMC4zNDMxIDEyIDEyIDEyQzEzLjY1NjkgMTIgMTUgMTAuNjU2OSAxNSA5QzE1IDcuMzQzMTUgMTMuNjU2OSA2IDEyIDZaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNMTIgMTVDMTMuNjU2OSAxNSAxNSAxMy42NTY5IDE1IDEyQzE1IDEwLjM0MzEgMTMuNjU2OSA5IDEyIDlDMTAuMzQzMSA5IDkgMTAuMzQzMSA5IDEyQzkgMTMuNjU2OSAxMC4zNDMxIDE1IDEyIDE1WiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==' 
+  },
+  { 
+    key: 'youtube', 
+    name: 'YouTube', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMCAxNlY4TDE2IDEyTDEwIDE2WiIgZmlsbD0iYmxhY2siLz4KPC9zdmc+Cg==' 
+  },
+  { 
+    key: 'soundcloud', 
+    name: 'SoundCloud', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiA2QzEwLjM0MzEgNiA5IDcuMzQzMTUgOSA5QzkgMTAuNjU2OSAxMC4zNDMxIDEyIDEyIDEyQzEzLjY1NjkgMTIgMTUgMTAuNjU2OSAxNSA5QzE1IDcuMzQzMTUgMTMuNjU2OSA2IDEyIDZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K' 
+  },
+  { 
+    key: 'bandcamp', 
+    name: 'Bandcamp', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiA2QzEwLjM0MzEgNiA5IDcuMzQzMTUgOSA5QzkgMTAuNjU2OSAxMC4zNDMxIDEyIDEyIDEyQzEzLjY1NjkgMTIgMTUgMTAuNjU2OSAxNSA5QzE1IDcuMzQzMTUgMTMuNjU2OSA2IDEyIDZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K' 
+  },
+  { 
+    key: 'tidal', 
+    name: 'Tidal', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiA2QzEwLjM0MzEgNiA5IDcuMzQzMTUgOSA5QzkgMTAuNjU2OSAxMC4zNDMxIDEyIDEyIDEyQzEzLjY1NjkgMTIgMTUgMTAuNjU2OSAxNSA5QzE1IDcuMzQzMTUgMTMuNjU2OSA2IDEyIDZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K' 
+  },
+  { 
+    key: 'amazonMusic', 
+    name: 'Amazon Music', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiA2QzEwLjM0MzEgNiA5IDcuMzQzMTUgOSA5QzkgMTAuNjU2OSAxMC4zNDMxIDEyIDEyIDEyQzEzLjY1NjkgMTIgMTUgMTAuNjU2OSAxNSA5QzE1IDcuMzQzMTUgMTMuNjU2OSA2IDEyIDZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K' 
+  },
+  { 
+    key: 'deezer', 
+    name: 'Deezer', 
+    logo: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJDNi40OCAyIDIgNi40OCAyIDEyQzIgMTcuNTIgNi40OCAyMiAxMiAyMkMxNy41MiAyMiAyMiAxNy41MiAyMiAxMkMyMiA2LjQ4IDE3LjUyIDIgMTIgMloiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik0xMiA2QzEwLjM0MzEgNiA5IDcuMzQzMTUgOSA5QzkgMTAuNjU2OSAxMC4zNDMxIDEyIDEyIDEyQzEzLjY1NjkgMTIgMTUgMTAuNjU2OSAxNSA5QzE1IDcuMzQzMTUgMTMuNjU2OSA2IDEyIDZaIiBmaWxsPSJibGFjayIvPgo8L3N2Zz4K' 
+  },
 ]
 
 export default function AlbumPage({ params }: AlbumPageProps) {
@@ -99,13 +131,36 @@ export default function AlbumPage({ params }: AlbumPageProps) {
         <div className="flex items-center max-w-7xl mx-auto gap-20">
           {/* Album Cover Section */}
           <div className="relative">
-            {/* Blurred background glow effect */}
+            {/* Multi-layer glow effect to reduce banding */}
             <div className="absolute inset-0">
+              {/* Base glow layer */}
               <img
                 src={album.coverUrl}
                 alt=""
-                className="w-[500px] h-[500px] object-cover rounded-[30px] blur-[100px] opacity-75"
-                style={{ filter: 'blur(100px)' }}
+                className="w-[500px] h-[500px] object-cover rounded-[30px] opacity-30"
+                style={{ 
+                  filter: 'blur(80px) brightness(1.2)',
+                  transform: 'scale(1.1)'
+                }}
+              />
+              {/* Additional glow layers for smoother effect */}
+              <img
+                src={album.coverUrl}
+                alt=""
+                className="absolute inset-0 w-[500px] h-[500px] object-cover rounded-[30px] opacity-20"
+                style={{ 
+                  filter: 'blur(120px) brightness(1.5)',
+                  transform: 'scale(1.2)'
+                }}
+              />
+              <img
+                src={album.coverUrl}
+                alt=""
+                className="absolute inset-0 w-[500px] h-[500px] object-cover rounded-[30px] opacity-15"
+                style={{ 
+                  filter: 'blur(160px) brightness(1.8)',
+                  transform: 'scale(1.3)'
+                }}
               />
             </div>
             
@@ -134,13 +189,13 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               className="mb-16 text-center"
             >
               <h1 
-                className={`text-6xl md:text-7xl font-bold text-white leading-tight mb-6 ${instrumentSerif.className}`}
+                className={`text-6xl md:text-7xl font-bold text-white leading-tight mb-4 ${instrumentSerif.className}`}
               >
                 {album.albumName}
               </h1>
               <p 
-                className="text-3xl text-gray-300 font-medium tracking-wider"
-                style={{ fontFamily: 'Helvetica Neue, sans-serif' }}
+                className="text-xl text-gray-300 font-bold tracking-wider"
+                style={{ fontFamily: 'Helvetica Neue, sans-serif', fontWeight: '700' }}
               >
                 {album.artistName.toUpperCase()}
               </p>
@@ -161,13 +216,19 @@ export default function AlbumPage({ params }: AlbumPageProps) {
                       href={album.streamingLinks[service.key]}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-medium transition-all duration-200 hover:bg-opacity-10 hover:scale-105"
+                      className="bg-white bg-opacity-5 text-white px-8 py-4 rounded-full font-bold transition-all duration-200 hover:bg-opacity-10 hover:scale-105 flex items-center justify-center space-x-3"
                       style={{ 
                         fontFamily: 'Helvetica Neue, sans-serif',
+                        fontWeight: '700',
                         width: 'fit-content',
                         minWidth: '200px'
                       }}
                     >
+                      <img 
+                        src={service.logo} 
+                        alt={`${service.name} logo`}
+                        className="w-6 h-6"
+                      />
                       <span className="text-lg tracking-wider">{service.name.toUpperCase()}</span>
                     </a>
                   ))}
