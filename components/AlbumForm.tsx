@@ -154,8 +154,9 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
       
       toast.success('Album created successfully!')
       
-      // Redirect to the new album page using relative URL
-      window.open(`/album/${formData.subdomain}`, '_blank')
+      // Redirect to the new album page using subdomain URL
+      const domain = process.env.NEXT_PUBLIC_DOMAIN || 'gooddayrecords.xyz'
+      window.open(`https://${formData.subdomain}.${domain}`, '_blank')
       
       // Reset form
       setFormData({
@@ -218,11 +219,15 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
             <input {...getInputProps()} />
             {coverPreview ? (
               <div className="space-y-4">
-                <img
-                  src={coverPreview}
-                  alt="Album cover preview"
-                  className="w-32 h-32 object-cover rounded-lg mx-auto"
-                />
+                <div className="relative inline-block">
+                  <img
+                    src={coverPreview}
+                    alt="Album cover preview"
+                    className="w-32 h-32 object-cover rounded-lg mx-auto relative z-10"
+                  />
+                  {/* Glassy inner stroke effect */}
+                  <div className="absolute inset-0 w-32 h-32 rounded-lg mx-auto bg-gradient-to-br from-white/20 to-white/5 backdrop-blur-sm border border-white/30 shadow-inner"></div>
+                </div>
                 <p className="text-sm text-slate-600">
                   {coverFile?.name}
                 </p>
@@ -304,7 +309,7 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
             </button>
           </div>
           <p className="text-sm text-slate-500 mt-1">
-            Your album will be available at: {formData.subdomain ? `gooddayrecords.xyz/album/${formData.subdomain}` : 'gooddayrecords.xyz/album/your-url'}
+            Your album will be available at: {formData.subdomain ? `${formData.subdomain}.gooddayrecords.xyz` : 'your-url.gooddayrecords.xyz'}
           </p>
         </div>
 

@@ -171,32 +171,11 @@ export default function AlbumPage({ params }: AlbumPageProps) {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="relative z-10"
             >
-              {/* Glassy gradient stroke */}
-              <div className="relative">
-                {/* Outer gradient border */}
-                <div 
-                  className="absolute inset-0 rounded-[30px] p-[2px]"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 25%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.1) 75%, rgba(255,255,255,0.3) 100%)',
-                    backdropFilter: 'blur(10px)',
-                  }}
-                >
-                  {/* Inner gradient border */}
-                  <div 
-                    className="w-full h-full rounded-[28px] p-[1px]"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.2) 100%)',
-                    }}
-                  >
-                    {/* Album cover image */}
-                    <img
-                      src={album.coverUrl}
-                      alt={`${album.albumName} by ${album.artistName}`}
-                      className="w-[500px] h-[500px] object-cover rounded-[27px]"
-                    />
-                  </div>
-                </div>
-              </div>
+              <img
+                src={album.coverUrl}
+                alt={`${album.albumName} by ${album.artistName}`}
+                className="w-[500px] h-[500px] object-cover rounded-[30px]"
+              />
             </motion.div>
           </div>
 
