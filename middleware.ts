@@ -8,14 +8,25 @@ export function middleware(request: NextRequest) {
     return NextResponse.next()
   }
 
-  // Check if this is a subdomain request (not the main domain)
-  const hostname = host.split('.')[0]
-  const isSubdomain = hostname !== 'gooddayrecords' && hostname !== 'localhost' && hostname !== 'www'
+  // Check if this is a subdomain request
+  const hostParts = host.split('.')
+  const subdomain = hostParts[0]
+  
+  // Define main domains that should not be treated as subdomains
+  const mainDomains = [
+    'gooddayrecords', // custom domain
+    'goodday-records', // vercel app domain
+    'localhost',
+    'www',
+    'vercel'
+  ]
+  
+  const isSubdomain = !mainDomains.includes(subdomain) && hostParts.length > 1
   
   if (isSubdomain && pathname === '/') {
     // Redirect subdomain root to the subdomain page
     const url = request.nextUrl.clone()
-    url.pathname = `/${hostname}`
+    url.pathname = `/${subdomain}`
     return NextResponse.rewrite(url)
   }
 

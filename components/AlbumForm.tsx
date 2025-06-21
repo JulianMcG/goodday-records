@@ -155,7 +155,8 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
       toast.success('Album created successfully!')
       
       // Redirect to the new album page using subdomain URL
-      const domain = process.env.NEXT_PUBLIC_DOMAIN || 'gooddayrecords.xyz'
+      const currentDomain = typeof window !== 'undefined' ? window.location.hostname : 'gooddayrecords.xyz'
+      const domain = process.env.NEXT_PUBLIC_DOMAIN || currentDomain
       window.open(`https://${formData.subdomain}.${domain}`, '_blank')
       
       // Reset form
@@ -309,7 +310,7 @@ export default function AlbumForm({ onClose }: AlbumFormProps) {
             </button>
           </div>
           <p className="text-sm text-slate-500 mt-1">
-            Your album will be available at: {formData.subdomain ? `${formData.subdomain}.gooddayrecords.xyz` : 'your-url.gooddayrecords.xyz'}
+            Your album will be available at: {formData.subdomain ? `${formData.subdomain}.${typeof window !== 'undefined' ? window.location.hostname : 'gooddayrecords.xyz'}` : `your-url.${typeof window !== 'undefined' ? window.location.hostname : 'gooddayrecords.xyz'}`}
           </p>
         </div>
 

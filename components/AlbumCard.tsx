@@ -76,10 +76,10 @@ export default function AlbumCard({ album }: AlbumCardProps) {
         {/* Subdomain Link */}
         <div className="flex items-center justify-between pt-4 border-t border-slate-100">
           <span className="text-sm text-slate-500">
-            {album.subdomain}.gooddayrecords.xyz
+            {album.subdomain}.{typeof window !== 'undefined' ? window.location.hostname : 'gooddayrecords.xyz'}
           </span>
           <a
-            href={`https://${album.subdomain}.gooddayrecords.xyz`}
+            href={`https://${album.subdomain}.${typeof window !== 'undefined' ? window.location.hostname : 'gooddayrecords.xyz'}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-primary-600 hover:text-primary-700 text-sm font-medium flex items-center space-x-1"
