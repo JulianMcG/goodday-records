@@ -1,4 +1,10 @@
 {
+  "rewrites": [
+    {
+      "source": "/:subdomain*",
+      "destination": "/album/:subdomain*"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -19,7 +25,7 @@
     }
   ],
   "functions": {
-    "app/[subdomain]/page.tsx": {
+    "app/album/[subdomain]/page.tsx": {
       "maxDuration": 30
     }
   }
